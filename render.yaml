@@ -1,0 +1,38 @@
+services:
+  - type: web
+    name: expense-app-backend
+    env: node
+    plan: free
+    buildCommand: npm ci
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: DB_HOST
+        sync: false
+      - key: DB_NAME
+        sync: false
+      - key: DB_USER
+        sync: false
+      - key: DB_PASSWORD
+        sync: false
+      - key: DB_PORT
+        value: 3306
+      - key: DB_DIALECT
+        value: mysql
+      - key: FRONTEND_URL
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+
+  - type: pserv
+    name: expense-app-database
+    env: mysql
+    plan: free
+    ipAllowList: []
+    disk:
+      name: expense-app-disk
+      mountPath: /var/lib/mysql
+      sizeGB: 1
